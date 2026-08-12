@@ -214,6 +214,16 @@
     color:var(--m-accent);
     margin-top:6px; display:block;
   }
+  .m-title-wrap h2 a{ text-decoration:none; color:inherit; border-bottom:1px solid transparent; }
+  .m-title-wrap h2 a:hover{ border-bottom-color:var(--m-accent); color:var(--m-accent); }
+  .outline-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.04em;
+    color:var(--m-accent); text-decoration:none;
+    margin-top:10px;
+    border:1px solid var(--rule); border-radius:20px; padding:5px 12px;
+  }
+  .outline-link:hover{ border-color:var(--m-accent); }
 
   .m-grid{
     display:grid;
@@ -282,9 +292,16 @@
     display:inline-flex; align-items:center; gap:8px;
     font-family:var(--mono); font-size:11.5px;
     color:var(--text-dim);
+    text-decoration:none;
     border:1px dashed var(--rule);
     padding:6px 10px;
     border-radius:3px;
+    transition:border-color .15s, color .15s;
+  }
+  a.prac-file:hover{
+    color:var(--m-accent);
+    border-color:var(--m-accent);
+    border-style:solid;
   }
   .prac-file svg{ width:13px; height:13px; flex-shrink:0; }
 
@@ -390,8 +407,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">01</span>MODULE 01</div>
       <div class="m-title-wrap">
-        <h2>Introduction</h2>
+        <h2><a href="modules/module1.md">Introduction</a></h2>
         <span class="m-tag">Computational framework · Finite State Automata · RTN / ATN</span>
+        <a class="outline-link" href="modules/module1.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -432,18 +450,16 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 1 — FSA, RTN &amp; ATN</span><span class="prac-num">P1</span></div>
               <div class="prac-desc">English + Hindi morphological FSA, recursive prefix-network, agreement-checking ATN, spelling-detection application.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical1_FSA_RTN_ATN.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical1_FSA_RTN_ATN.ipynb
-              </div>
+                NLP_Practical1_FSA_RTN_ATN.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 2 — Levels of Analysis + MT</span><span class="prac-num">P2</span></div>
               <div class="prac-desc">One sentence run through morphological → syntactic → semantic → pragmatic analysis, then translated as an applied example.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical2_Levels_and_MT.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical2_Levels_and_MT.ipynb
-              </div>
+                NLP_Practical2_Levels_and_MT.ipynb</a>
             </div>
           </div>
         </div>
@@ -456,8 +472,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">02</span>MODULE 02</div>
       <div class="m-title-wrap">
-        <h2>Word Level &amp; Syntactic Analysis</h2>
+        <h2><a href="modules/module2.md">Word Level &amp; Syntactic Analysis</a></h2>
         <span class="m-tag">Regex · POS Tagging · CFG · Probabilistic Parsing</span>
+        <a class="outline-link" href="modules/module2.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -499,18 +516,16 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 3 — Word-Level Analysis</span><span class="prac-num">P3</span></div>
               <div class="prac-desc">Regex extraction, two-level FSA morphology, noisy-channel spelling correction, rule-based → HMM/Viterbi → pretrained POS tagging.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical3_WordLevel_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical3_WordLevel_Analysis.ipynb
-              </div>
+                NLP_Practical3_WordLevel_Analysis.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 4 — Syntactic Analysis</span><span class="prac-num">P4</span></div>
               <div class="prac-desc">CFG + chart parsing, PP-attachment ambiguity, PCFG ranking, spaCy dependency parsing, WordNet, RTN-as-recursive-descent parser.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical4_Syntactic_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical4_Syntactic_Analysis.ipynb
-              </div>
+                NLP_Practical4_Syntactic_Analysis.ipynb</a>
             </div>
           </div>
         </div>
@@ -523,8 +538,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">03</span>MODULE 03</div>
       <div class="m-title-wrap">
-        <h2>Semantic Analysis</h2>
+        <h2><a href="modules/module3.md">Semantic Analysis</a></h2>
         <span class="m-tag">Meaning Representation · WSD · Discourse · Knowledge Reasoning</span>
+        <a class="outline-link" href="modules/module3.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -566,18 +582,16 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 5 — Semantic Analysis</span><span class="prac-num">P5</span></div>
               <div class="prac-desc">FOL &amp; frame representations, WordNet lexical relations, ambiguity typology, Lesk WSD (hand-built + NLTK) and a Naive Bayes sense classifier.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical5_Semantic_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical5_Semantic_Analysis.ipynb
-              </div>
+                NLP_Practical5_Semantic_Analysis.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 6 — Discourse &amp; Knowledge</span><span class="prac-num">P6</span></div>
               <div class="prac-desc">Lexical cohesion detection, rule-based pronoun resolution, RST-style discourse tagging, semantic networks + forward-chaining reasoning.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical6_Discourse_and_Knowledge.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical6_Discourse_and_Knowledge.ipynb
-              </div>
+                NLP_Practical6_Discourse_and_Knowledge.ipynb</a>
             </div>
           </div>
         </div>
@@ -590,8 +604,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">04</span>MODULE 04</div>
       <div class="m-title-wrap">
-        <h2>Natural Language Generation</h2>
+        <h2><a href="modules/module4.md">Natural Language Generation</a></h2>
         <span class="m-tag">NLG Architecture · Machine Translation · Indian Languages</span>
+        <a class="outline-link" href="modules/module4.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -632,18 +647,16 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 7 — Natural Language Generation</span><span class="prac-num">P7</span></div>
               <div class="prac-desc">Full content-determination → realization pipeline on live weather data, template NLG, statistical n-gram generation, real-world NLG survey.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical7_NLG.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical7_NLG.ipynb
-              </div>
+                NLP_Practical7_NLG.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 8 — Machine Translation</span><span class="prac-num">P8</span></div>
               <div class="prac-desc">MT problem taxonomy, Indian-language morphology, rule-based + IBM Model 1 (EM from scratch) + neural MT, BLEU evaluation.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical8_Machine_Translation.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical8_Machine_Translation.ipynb
-              </div>
+                NLP_Practical8_Machine_Translation.ipynb</a>
             </div>
           </div>
         </div>
@@ -656,8 +669,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">05</span>MODULE 05</div>
       <div class="m-title-wrap">
-        <h2>Information Retrieval &amp; Lexical Resources</h2>
+        <h2><a href="modules/module5.md">Information Retrieval &amp; Lexical Resources</a></h2>
         <span class="m-tag">IR Models · Evaluation · WordNet · FrameNet · Stemmers</span>
+        <a class="outline-link" href="modules/module5.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -699,18 +713,16 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 9 — Information Retrieval</span><span class="prac-num">P9</span></div>
               <div class="prac-desc">Inverted index, Boolean/VSM/BM25 ranking, LSI &amp; embedding-based semantic search, Precision/Recall/F1/MAP evaluation.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical9_Information_Retrieval.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical9_Information_Retrieval.ipynb
-              </div>
+                NLP_Practical9_Information_Retrieval.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 10 — Lexical Resources</span><span class="prac-num">P10</span></div>
               <div class="prac-desc">WordNet similarity measures, real FrameNet frame/role exploration, Porter/Lancaster/Snowball stemmer comparison, a POS tagger trained from scratch.</div>
-              <div class="prac-file">
+              <a class="prac-file" href="notebooks/NLP_Practical10_Lexical_Resources.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
-                NLP_Practical10_Lexical_Resources.ipynb
-              </div>
+                NLP_Practical10_Lexical_Resources.ipynb</a>
             </div>
           </div>
         </div>
@@ -718,11 +730,21 @@
     </div>
   </section>
 
+  <!-- ============ ASSESSMENTS ============ -->
+  <section class="closing" style="padding-bottom:8px;">
+    <h3>Test the pipeline.</h3>
+    <p>A comprehensive quiz across all five modules, and a capstone-style mini-assignment that threads every module into one working ticket-triage system — the same way a real support-desk pipeline is built.</p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+      <a href="assessments/nlp_quiz.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Course Quiz (20 MCQ + FIB + T/F + Match) →</a>
+      <a href="assessments/nlp_mini_assignment.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Mini-Assignment: Ticket Triage System →</a>
+    </div>
+  </section>
+
   <!-- ============ CLOSING ============ -->
   <section class="closing">
     <h3>Five stages, one machine.</h3>
     <p>Every module on this page is a stage the same pipeline runs, in order, on every sentence a real system processes — from a search box, a translation request, or a chat message. Understanding where your model sits in that pipeline is the fastest way to reason about what it can and can't do.</p>
-    <p>All ten notebooks referenced above are Colab-ready and were shared earlier in this conversation — reopen them from the chat history to download.</p>
+    <p>All ten notebooks referenced above are Colab-ready — click any practical card to open it directly from this repository.</p>
   </section>
 
 </main>
