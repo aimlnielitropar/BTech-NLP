@@ -30,6 +30,24 @@
     --mono: 'IBM Plex Mono', 'SF Mono', monospace;
   }
 
+  /* ============ LIGHT MODE ============ */
+  html[data-theme="light"]{
+    --ink-bg:      #f7f4ea;
+    --ink-bg-2:    #ffffff;
+    --paper:       #12141a;
+    --paper-dim:   #4a4d57;
+    --text-hi:     #14161b;
+    --text-mid:    #4b4f5c;
+    --text-dim:    #767a86;
+    --rule:        #ddd8c8;
+
+    --m1: #a8790a;
+    --m2: #147a68;
+    --m3: #ad4d85;
+    --m4: #3c66b0;
+    --m5: #b6522c;
+  }
+
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
 
@@ -39,6 +57,7 @@
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
   }
 
   a{ color:inherit; }
@@ -61,6 +80,10 @@
     background:rgba(18,20,26,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--rule);
+    transition:background .25s ease;
+  }
+  html[data-theme="light"] header.rail{
+    background:rgba(247,244,234,0.92);
   }
   .rail-inner{
     max-width:1120px; margin:0 auto; padding:14px 32px;
@@ -72,7 +95,7 @@
   }
   .rail-mark b{ color:var(--text-hi); font-weight:600; }
   .rail-nodes{
-    display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;
+    display:flex; align-items:center; gap:4px; overflow-x:auto; scrollbar-width:none;
   }
   .rail-nodes::-webkit-scrollbar{ display:none; }
   .rail-node{
@@ -87,6 +110,26 @@
     display:inline-block; width:6px; height:6px; border-radius:50%;
     margin-right:7px; position:relative; top:-1px;
   }
+
+  .theme-toggle{
+    display:flex; align-items:center; gap:8px;
+    background:var(--ink-bg-2);
+    border:1px solid var(--rule);
+    border-radius:999px;
+    padding:5px 12px 5px 6px;
+    cursor:pointer;
+    font-family:var(--mono); font-size:11px;
+    color:var(--text-mid);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    flex-shrink:0;
+    margin-left:8px;
+  }
+  .theme-toggle:hover{ border-color:var(--m1); color:var(--text-hi); }
+  .theme-toggle svg{ display:block; width:13px; height:13px; }
+  .theme-toggle .sun-icon{ display:none; }
+  html[data-theme="light"] .theme-toggle .sun-icon{ display:block; }
+  html[data-theme="light"] .theme-toggle .moon-icon{ display:none; }
 
   /* ============ HERO ============ */
   .hero{
@@ -356,6 +399,11 @@
       <a class="rail-node" href="#m3"><span class="dot" style="background:#d17ab0"></span>03 Semantics</a>
       <a class="rail-node" href="#m4"><span class="dot" style="background:#6f9ceb"></span>04 Generation</a>
       <a class="rail-node" href="#m5"><span class="dot" style="background:#e2724a"></span>05 Retrieval</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
     </nav>
   </div>
 </header>
@@ -407,9 +455,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">01</span>MODULE 01</div>
       <div class="m-title-wrap">
-        <h2><a href="modules/module1.md">Introduction</a></h2>
+        <h2><a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module1.md">Introduction</a></h2>
         <span class="m-tag">Computational framework · Finite State Automata · RTN / ATN</span>
-        <a class="outline-link" href="modules/module1.md">Full lecture-by-lecture outline →</a>
+        <a class="outline-link" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module1.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -450,14 +498,14 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 1 — FSA, RTN &amp; ATN</span><span class="prac-num">P1</span></div>
               <div class="prac-desc">English + Hindi morphological FSA, recursive prefix-network, agreement-checking ATN, spelling-detection application.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical1_FSA_RTN_ATN.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical1_FSA_RTN_ATN.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical1_FSA_RTN_ATN.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 2 — Levels of Analysis + MT</span><span class="prac-num">P2</span></div>
               <div class="prac-desc">One sentence run through morphological → syntactic → semantic → pragmatic analysis, then translated as an applied example.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical2_Levels_and_MT.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical2_Levels_and_MT.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical2_Levels_and_MT.ipynb</a>
             </div>
@@ -472,9 +520,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">02</span>MODULE 02</div>
       <div class="m-title-wrap">
-        <h2><a href="modules/module2.md">Word Level &amp; Syntactic Analysis</a></h2>
+        <h2><a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module2.md">Word Level &amp; Syntactic Analysis</a></h2>
         <span class="m-tag">Regex · POS Tagging · CFG · Probabilistic Parsing</span>
-        <a class="outline-link" href="modules/module2.md">Full lecture-by-lecture outline →</a>
+        <a class="outline-link" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module2.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -516,14 +564,14 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 3 — Word-Level Analysis</span><span class="prac-num">P3</span></div>
               <div class="prac-desc">Regex extraction, two-level FSA morphology, noisy-channel spelling correction, rule-based → HMM/Viterbi → pretrained POS tagging.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical3_WordLevel_Analysis.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical3_WordLevel_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical3_WordLevel_Analysis.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 4 — Syntactic Analysis</span><span class="prac-num">P4</span></div>
               <div class="prac-desc">CFG + chart parsing, PP-attachment ambiguity, PCFG ranking, spaCy dependency parsing, WordNet, RTN-as-recursive-descent parser.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical4_Syntactic_Analysis.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical4_Syntactic_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical4_Syntactic_Analysis.ipynb</a>
             </div>
@@ -538,9 +586,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">03</span>MODULE 03</div>
       <div class="m-title-wrap">
-        <h2><a href="modules/module3.md">Semantic Analysis</a></h2>
+        <h2><a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module3.md">Semantic Analysis</a></h2>
         <span class="m-tag">Meaning Representation · WSD · Discourse · Knowledge Reasoning</span>
-        <a class="outline-link" href="modules/module3.md">Full lecture-by-lecture outline →</a>
+        <a class="outline-link" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module3.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -582,14 +630,14 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 5 — Semantic Analysis</span><span class="prac-num">P5</span></div>
               <div class="prac-desc">FOL &amp; frame representations, WordNet lexical relations, ambiguity typology, Lesk WSD (hand-built + NLTK) and a Naive Bayes sense classifier.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical5_Semantic_Analysis.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical5_Semantic_Analysis.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical5_Semantic_Analysis.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 6 — Discourse &amp; Knowledge</span><span class="prac-num">P6</span></div>
               <div class="prac-desc">Lexical cohesion detection, rule-based pronoun resolution, RST-style discourse tagging, semantic networks + forward-chaining reasoning.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical6_Discourse_and_Knowledge.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical6_Discourse_and_Knowledge.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical6_Discourse_and_Knowledge.ipynb</a>
             </div>
@@ -604,9 +652,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">04</span>MODULE 04</div>
       <div class="m-title-wrap">
-        <h2><a href="modules/module4.md">Natural Language Generation</a></h2>
+        <h2><a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module4.md">Natural Language Generation</a></h2>
         <span class="m-tag">NLG Architecture · Machine Translation · Indian Languages</span>
-        <a class="outline-link" href="modules/module4.md">Full lecture-by-lecture outline →</a>
+        <a class="outline-link" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module4.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -647,14 +695,14 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 7 — Natural Language Generation</span><span class="prac-num">P7</span></div>
               <div class="prac-desc">Full content-determination → realization pipeline on live weather data, template NLG, statistical n-gram generation, real-world NLG survey.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical7_NLG.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical7_NLG.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical7_NLG.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 8 — Machine Translation</span><span class="prac-num">P8</span></div>
               <div class="prac-desc">MT problem taxonomy, Indian-language morphology, rule-based + IBM Model 1 (EM from scratch) + neural MT, BLEU evaluation.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical8_Machine_Translation.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical8_Machine_Translation.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical8_Machine_Translation.ipynb</a>
             </div>
@@ -669,9 +717,9 @@
     <div class="m-head">
       <div class="m-index"><span class="big">05</span>MODULE 05</div>
       <div class="m-title-wrap">
-        <h2><a href="modules/module5.md">Information Retrieval &amp; Lexical Resources</a></h2>
+        <h2><a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module5.md">Information Retrieval &amp; Lexical Resources</a></h2>
         <span class="m-tag">IR Models · Evaluation · WordNet · FrameNet · Stemmers</span>
-        <a class="outline-link" href="modules/module5.md">Full lecture-by-lecture outline →</a>
+        <a class="outline-link" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/modules/module5.md">Full lecture-by-lecture outline →</a>
       </div>
     </div>
 
@@ -713,14 +761,14 @@
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 9 — Information Retrieval</span><span class="prac-num">P9</span></div>
               <div class="prac-desc">Inverted index, Boolean/VSM/BM25 ranking, LSI &amp; embedding-based semantic search, Precision/Recall/F1/MAP evaluation.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical9_Information_Retrieval.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical9_Information_Retrieval.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical9_Information_Retrieval.ipynb</a>
             </div>
             <div class="prac-card">
               <div class="prac-top"><span class="prac-title">Practical 10 — Lexical Resources</span><span class="prac-num">P10</span></div>
               <div class="prac-desc">WordNet similarity measures, real FrameNet frame/role exploration, Porter/Lancaster/Snowball stemmer comparison, a POS tagger trained from scratch.</div>
-              <a class="prac-file" href="notebooks/NLP_Practical10_Lexical_Resources.ipynb" target="_blank" rel="noopener">
+              <a class="prac-file" href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/notebooks/NLP_Practical10_Lexical_Resources.ipynb" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
                 NLP_Practical10_Lexical_Resources.ipynb</a>
             </div>
@@ -735,8 +783,8 @@
     <h3>Test the pipeline.</h3>
     <p>A comprehensive quiz across all five modules, and a capstone-style mini-assignment that threads every module into one working ticket-triage system — the same way a real support-desk pipeline is built.</p>
     <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
-      <a href="assessments/nlp_quiz.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Course Quiz (20 MCQ + FIB + T/F + Match) →</a>
-      <a href="assessments/nlp_mini_assignment.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Mini-Assignment: Ticket Triage System →</a>
+      <a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/assessments/nlp_quiz.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Course Quiz (20 MCQ + FIB + T/F + Match) →</a>
+      <a href="https://github.com/aimlnielitropar/BTech-NLP/blob/main/assessments/nlp_mini_assignment.md" style="font-family:var(--mono); font-size:12.5px; text-decoration:none; color:var(--text-hi); border:1px solid var(--rule); padding:10px 16px; border-radius:20px;">Mini-Assignment: Ticket Triage System →</a>
     </div>
   </section>
 
@@ -785,6 +833,27 @@
           stages[stage-1].style.borderColor = '';
         }
       });
+    });
+  })();
+
+  // Light / dark mode toggle — defaults to system preference,
+  // state kept in memory only (no storage APIs).
+  (function(){
+    var root = document.documentElement;
+    var toggleBtn = document.getElementById('themeToggle');
+    var label = document.getElementById('themeLabel');
+
+    function applyTheme(theme){
+      root.setAttribute('data-theme', theme);
+      label.textContent = theme === 'light' ? 'Light' : 'Dark';
+    }
+
+    var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    applyTheme(prefersLight ? 'light' : 'dark');
+
+    toggleBtn.addEventListener('click', function(){
+      var current = root.getAttribute('data-theme');
+      applyTheme(current === 'light' ? 'dark' : 'light');
     });
   })();
 </script>
