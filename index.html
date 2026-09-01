@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP · DOAI250041 — Learning Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12172B;
+    --ink-soft:#232B47;
+    --parchment:#F6F1E4;
+    --parchment-dim:#EDE6D3;
+    --amber:#E8A33D;
+    --teal:#3E7C74;
+    --coral:#D9634B;
+    --line:rgba(246,241,228,0.14);
+    --serif: "Source Serif 4", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:var(--serif);
+    line-height:1.6;
+  }
+  ::selection{ background:var(--amber); color:var(--ink); }
+
+  a{color:inherit;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,23,43,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:58px; }
+  .brand{ font-family:var(--mono); font-weight:700; font-size:0.9rem; letter-spacing:0.02em; }
+  .brand span{ color:var(--amber); }
+  .navlinks{ display:flex; gap:22px; font-family:var(--mono); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; }
+  .navlinks a{ text-decoration:none; opacity:0.75; transition:opacity .2s; }
+  .navlinks a:hover{ opacity:1; color:var(--amber); }
+
+  /* ---------- HERO / SIGNATURE: the tokenizer strip ---------- */
+  header.hero{ padding:88px 0 40px; position:relative; overflow:hidden; }
+  .eyebrow{
+    font-family:var(--mono); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--teal); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--teal); display:inline-block; }
+  h1.title{
+    font-size:clamp(2.4rem, 5.4vw, 4.1rem);
+    line-height:1.04; margin:0 0 22px; font-weight:700; letter-spacing:-0.01em;
+  }
+  h1.title em{ font-style:normal; color:var(--amber); }
+  .lede{ max-width:640px; font-size:1.15rem; color:rgba(246,241,228,0.82); margin-bottom:36px;}
+
+  /* Tokenizer strip: signature element — a sentence about NLP, literally tokenized/tagged */
+  .token-strip{
+    display:flex; flex-wrap:wrap; gap:8px; margin:34px 0 8px;
+    font-family:var(--mono); font-size:0.92rem;
+  }
+  .tok{
+    padding:7px 12px; border-radius:5px; background:var(--ink-soft);
+    border:1px solid var(--line); position:relative; cursor:default;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .tok:hover{ transform:translateY(-2px); border-color:var(--amber); }
+  .tok .tag{
+    position:absolute; top:-9px; left:8px; font-size:0.58rem; letter-spacing:0.05em;
+    background:var(--amber); color:var(--ink); padding:1px 5px; border-radius:3px; font-weight:700;
+  }
+  .tok.pron .tag{ background:var(--teal); color:var(--ink); }
+  .tok.verb .tag{ background:var(--coral); color:var(--ink); }
+  .strip-caption{ font-family:var(--mono); font-size:0.72rem; color:rgba(246,241,228,0.45); margin-top:14px;}
+
+  .howto{
+    margin-top:30px; max-width:640px; font-size:0.88rem; color:rgba(246,241,228,0.75);
+    border:1px dashed var(--line); border-radius:8px; padding:14px 18px; background:rgba(62,124,116,0.07);
+  }
+  .howto-tag{ display:block; font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal); margin-bottom:6px;}
+  .howto code{ font-family:var(--mono); background:var(--ink-soft); padding:1px 6px; border-radius:4px; font-size:0.82em;}
+  .howto a{ color:var(--amber); text-decoration:underline; }
+
+  /* ---------- PROGRESS OVERVIEW ---------- */
+  .progress-bar-shell{
+    margin-top:52px; border:1px solid var(--line); border-radius:10px; padding:22px 24px;
+    background:var(--ink-soft);
+  }
+  .progress-row{ display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:0.78rem; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.05em; color:rgba(246,241,228,0.6);}
+  .track{ height:8px; background:rgba(246,241,228,0.08); border-radius:5px; overflow:hidden; display:flex;}
+  .track .seg{ height:100%; }
+  .track .seg:nth-child(1){ background:var(--teal); width:20%; }
+  .track .seg:nth-child(2){ background:var(--teal); width:26%; opacity:0.85;}
+  .track .seg:nth-child(3){ background:var(--amber); width:20%; opacity:0.85;}
+  .track .seg:nth-child(4){ background:var(--amber); width:20%; opacity:0.7;}
+  .track .seg:nth-child(5){ background:var(--coral); width:14%; opacity:0.7;}
+  .legend{ display:flex; gap:18px; margin-top:14px; flex-wrap:wrap; font-family:var(--mono); font-size:0.72rem; color:rgba(246,241,228,0.6);}
+  .legend .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px;}
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:74px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:38px; flex-wrap:wrap; gap:14px;}
+  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); margin:0; }
+  .level-badge{
+    font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em;
+    padding:5px 11px; border-radius:20px; border:1px solid currentColor;
+  }
+  .lvl-beginner{ color:var(--teal); }
+  .lvl-inter{ color:var(--amber); }
+  .lvl-advanced{ color:var(--coral); }
+
+  .module-intro{ max-width:700px; color:rgba(246,241,228,0.78); margin-bottom:28px; }
+  .module-intro b{ color:var(--parchment); }
+
+  .topics{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:10px; margin-bottom:34px; }
+  .topic-chip{
+    font-family:var(--mono); font-size:0.78rem; color:rgba(246,241,228,0.85);
+    border-left:2px solid var(--teal); padding:8px 0 8px 12px;
+  }
+  .sec-adv .topic-chip{ border-color:var(--coral); }
+  .sec-inter .topic-chip{ border-color:var(--amber); }
+
+  .prac-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; }
+  .prac-card{
+    background:var(--parchment); color:var(--ink); border-radius:10px; padding:22px 22px 20px;
+    text-decoration:none; display:flex; flex-direction:column; gap:10px;
+    border:1px solid transparent; transition:transform .18s ease, box-shadow .18s ease;
+    position:relative;
+  }
+  .prac-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.35); }
+  .prac-num{ font-family:var(--mono); font-weight:700; font-size:0.75rem; color:var(--teal); }
+  .prac-card h3{ margin:0; font-size:1.05rem; line-height:1.3; }
+  .prac-card p{ margin:0; font-size:0.86rem; color:#4a4636; }
+  .prac-open{ margin-top:auto; font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink); font-weight:700; display:flex; align-items:center; gap:6px;}
+  .prac-open::after{ content:"→"; transition:transform .18s ease;}
+  .prac-card:hover .prac-open::after{ transform:translateX(3px); }
+
+  /* ---------- CO mapping table ---------- */
+  table.co-table{ width:100%; border-collapse:collapse; font-size:0.9rem; }
+  table.co-table th, table.co-table td{ text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); }
+  table.co-table th{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:rgba(246,241,228,0.55); font-weight:600;}
+  table.co-table td{ color:rgba(246,241,228,0.85); }
+  table.co-table tr:last-child td{ border-bottom:none; }
+
+  /* ---------- footer / references ---------- */
+  footer{ padding:60px 0 80px; border-top:1px solid var(--line); }
+  .ref-list{ columns:2; gap:40px; font-size:0.88rem; color:rgba(246,241,228,0.78); }
+  .ref-list li{ break-inside:avoid; margin-bottom:14px; }
+  .foot-note{ margin-top:44px; font-family:var(--mono); font-size:0.75rem; color:rgba(246,241,228,0.4); }
+
+  @media (max-width:640px){
+    .navlinks{ display:none; }
+    .ref-list{ columns:1; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">DOAI250041 <span>·</span> NLP</div>
+    <div class="navlinks">
+      <a href="#module1">M1</a>
+      <a href="#module2">M2</a>
+      <a href="#module3">M3</a>
+      <a href="#module4">M4</a>
+      <a href="#module5">M5</a>
+      <a href="#refs">References</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">B.Tech Semester V — 2·0·4·4</div>
+    <h1 class="title">Natural Language<br><em>Processing</em>, tokenized.</h1>
+    <p class="lede">A five-module path from raw text to production-grade NLP systems — built to take you
+    from your first tokenizer to defending a capstone project in a technical interview. Every module
+    ends in code you run yourself.</p>
+
+    <div class="howto">
+      <span class="howto-tag">How to use these notebooks</span>
+      Click any card below to download the <code>.ipynb</code> file, then open
+      <a href="https://colab.research.google.com" target="_blank" rel="noopener">colab.research.google.com</a>
+      → <b>File → Upload notebook</b> → select the downloaded file. Each notebook installs its own
+      libraries in the first cell, so it runs on a fresh Colab instance with no setup.
+    </div>
+
+    <div class="token-strip" aria-label="Sample tokenized sentence, illustrating the pipeline taught in Module 1">
+      <div class="tok pron"><span class="tag">PRON</span>Machines</div>
+      <div class="tok verb"><span class="tag">VERB</span>learn</div>
+      <div class="tok"><span class="tag">DET</span>to</div>
+      <div class="tok verb"><span class="tag">VERB</span>read</div>
+      <div class="tok"><span class="tag">CCONJ</span>and</div>
+      <div class="tok verb"><span class="tag">VERB</span>respond</div>
+      <div class="tok"><span class="tag">ADP</span>in</div>
+      <div class="tok pron"><span class="tag">PROPN</span>human</div>
+      <div class="tok"><span class="tag">NOUN</span>language.</div>
+    </div>
+    <div class="strip-caption">// this is what Practical 2 teaches you to build — sentence segmentation → tokenization → POS tagging</div>
+
+    <div class="progress-bar-shell">
+      <div class="progress-row"><span>Course arc</span><span>15 practicals · 5 modules</span></div>
+      <div class="track">
+        <div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--teal)"></span>Foundations (M1–M2)</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Applications & systems (M3–M4)</span>
+        <span><span class="dot" style="background:var(--coral)"></span>Modern & responsible AI (M5)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MODULE 1 -->
+<section id="module1" class="sec-beg">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Module 1 — Foundations of Text</h2>
+      <span class="level-badge lvl-beginner">Beginner</span>
+    </div>
+    <p class="module-intro"><b>Start here.</b> Before any model can understand language, text has to
+    be collected, explored, and cleaned. This module builds the preprocessing muscle memory every
+    later module depends on.</p>
+    <div class="topics">
+      <div class="topic-chip">Corpus exploration & lexical diversity</div>
+      <div class="topic-chip">Sentence segmentation & tokenization</div>
+      <div class="topic-chip">Stop-word removal</div>
+      <div class="topic-chip">Stemming vs. lemmatization</div>
+      <div class="topic-chip">Part-of-speech tagging</div>
+      <div class="topic-chip">Cleaning raw text in Python</div>
+    </div>
+    <div class="prac-grid">
+      <a class="prac-card" href="../notebooks/Practical_01_Explore_Corpus.ipynb" download>
+        <span class="prac-num">PRACTICAL 01</span>
+        <h3>Explore a Text Corpus</h3>
+        <p>Load NLTK's Gutenberg corpus, compute vocabulary richness, and plot word frequency distributions.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_02_Preprocessing_Pipeline.ipynb" download>
+        <span class="prac-num">PRACTICAL 02</span>
+        <h3>The Preprocessing Pipeline</h3>
+        <p>Build a reusable clean → tokenize → normalize function using NLTK and spaCy.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 2 -->
+<section id="module2" class="sec-inter">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Module 2 — From Word Counts to Transformers</h2>
+      <span class="level-badge lvl-beginner">Beginner → Intermediate</span>
+    </div>
+    <p class="module-intro">Text becomes numbers. Here you'll engineer features (BoW, TF-IDF), train
+    your first classifiers (Naive Bayes, Logistic Regression), learn to evaluate them honestly, and
+    understand the conceptual leap from <b>MLP → LSTM → Transformer</b> that powers everything after this point.</p>
+    <div class="topics">
+      <div class="topic-chip">Bag of Words & TF-IDF</div>
+      <div class="topic-chip">Word embeddings (intro)</div>
+      <div class="topic-chip">Naive Bayes & Logistic Regression</div>
+      <div class="topic-chip">Train/test split & cross-validation</div>
+      <div class="topic-chip">Precision, recall, F1, confusion matrix</div>
+      <div class="topic-chip">Attention & Transformer architecture</div>
+      <div class="topic-chip">BERT vs. GPT</div>
+    </div>
+    <div class="prac-grid">
+      <a class="prac-card" href="../notebooks/Practical_03_BoW_TFIDF.ipynb" download>
+        <span class="prac-num">PRACTICAL 03</span>
+        <h3>Bag of Words & TF-IDF</h3>
+        <p>Vectorize documents, compare weighting schemes, and compute cosine similarity — the seed of Module 4's chatbot.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_04_Train_Test_CrossVal.ipynb" download>
+        <span class="prac-num">PRACTICAL 04</span>
+        <h3>Datasets Done Right</h3>
+        <p>Correct train-test splitting, stratification, and k-fold cross-validation on a real dataset.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_05_NaiveBayes_LogisticRegression.ipynb" download>
+        <span class="prac-num">PRACTICAL 05</span>
+        <h3>Your First Classifiers</h3>
+        <p>Train and compare Naive Bayes and Logistic Regression on real newsgroup text.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_06_Evaluation_Metrics.ipynb" download>
+        <span class="prac-num">PRACTICAL 06</span>
+        <h3>Evaluating Honestly</h3>
+        <p>Precision, recall, F1, confusion matrices — and why accuracy alone lies on imbalanced data.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 3 -->
+<section id="module3" class="sec-adv">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Module 3 — Advanced NLP Applications</h2>
+      <span class="level-badge lvl-inter">Intermediate → Advanced</span>
+    </div>
+    <p class="module-intro">This is where NLP becomes product-shaped: extracting entities from news,
+    summarizing documents, answering questions, and mining opinion — all powered by pretrained
+    transformer models via Hugging Face.</p>
+    <div class="topics">
+      <div class="topic-chip">Named Entity Recognition & relation extraction</div>
+      <div class="topic-chip">Extractive vs. abstractive summarization</div>
+      <div class="topic-chip">Sentiment analysis & opinion mining</div>
+      <div class="topic-chip">Topic modelling (LDA)</div>
+      <div class="topic-chip">Extractive question answering</div>
+      <div class="topic-chip">Coreference resolution</div>
+    </div>
+    <div class="prac-grid">
+      <a class="prac-card" href="../notebooks/Practical_07_NER_RelationExtraction.ipynb" download>
+        <span class="prac-num">PRACTICAL 07</span>
+        <h3>NER & Relation Extraction</h3>
+        <p>spaCy + BERT-based NER, plus dependency-parse triples for lightweight relation extraction.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_08_Text_Summarization.ipynb" download>
+        <span class="prac-num">PRACTICAL 08</span>
+        <h3>Summarization: Extractive & Abstractive</h3>
+        <p>TF-IDF/TextRank extraction vs. BART generation, scored with ROUGE.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_09_Sentiment_Topic_QA.ipynb" download>
+        <span class="prac-num">PRACTICAL 09</span>
+        <h3>Sentiment, Topics & QA</h3>
+        <p>VADER vs. BERT sentiment, LDA topic discovery, and extractive question answering.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 4 -->
+<section id="module4" class="sec-adv">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Module 4 — Chatbots & the AI Project Cycle</h2>
+      <span class="level-badge lvl-inter">Intermediate → Advanced</span>
+    </div>
+    <p class="module-intro">You'll build two working chatbots — retrieval-based and neural — then
+    apply the full <b>AI Project Cycle</b> (scoping → data → modelling → evaluation → deployment) to a
+    real hotel-booking bot, and finally to a project of your own choosing.</p>
+    <div class="topics">
+      <div class="topic-chip">Retrieval chatbots (cosine similarity)</div>
+      <div class="topic-chip">Neural intent recognition</div>
+      <div class="topic-chip">Confidence thresholds & fallback design</div>
+      <div class="topic-chip">Problem scoping (4Ws)</div>
+      <div class="topic-chip">Acceptance testing</div>
+      <div class="topic-chip">Deployment fundamentals</div>
+    </div>
+    <div class="prac-grid">
+      <a class="prac-card" href="../notebooks/Practical_10_RuleBased_Chatbot.ipynb" download>
+        <span class="prac-num">PRACTICAL 10</span>
+        <h3>Rule-Based Chatbot</h3>
+        <p>A bookstore FAQ bot built on TF-IDF + cosine similarity, with a live chat loop.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_11_Neural_Intent_Chatbot.ipynb" download>
+        <span class="prac-num">PRACTICAL 11</span>
+        <h3>Neural Intent Chatbot</h3>
+        <p>Train a small neural network to classify intent and generalize beyond exact phrasing.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_12_AIProjectCycle_HotelChatbot.ipynb" download>
+        <span class="prac-num">PRACTICAL 12</span>
+        <h3>AI Project Cycle: Hotel Chatbot</h3>
+        <p>Scope, build, evaluate, and "deploy" a complete hotel-booking assistant end to end.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_13_Capstone_Project_Template.ipynb" download>
+        <span class="prac-num">PRACTICAL 13 · CAPSTONE</span>
+        <h3>Your Own AI Project Cycle</h3>
+        <p>A fill-in-the-blank template to build your own portfolio-ready NLP project end to end.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 5 -->
+<section id="module5" class="sec-adv">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Module 5 — Modern & Responsible NLP</h2>
+      <span class="level-badge lvl-advanced">Advanced</span>
+    </div>
+    <p class="module-intro">The course closes on what's current: prompting large language models,
+    probing them for bias, and opening the black box with SHAP and LIME — the interpretability
+    skills that separate a model-builder from a trusted NLP engineer.</p>
+    <div class="topics">
+      <div class="topic-chip">LLM capabilities & prompt engineering</div>
+      <div class="topic-chip">Zero-shot, few-shot, chain-of-thought</div>
+      <div class="topic-chip">Bias, fairness & ethics</div>
+      <div class="topic-chip">Prompt injection awareness</div>
+      <div class="topic-chip">LIME: local explanations</div>
+      <div class="topic-chip">SHAP: local & global attribution</div>
+    </div>
+    <div class="prac-grid">
+      <a class="prac-card" href="../notebooks/Practical_14_LLM_PromptEngineering_Ethics.ipynb" download>
+        <span class="prac-num">PRACTICAL 14</span>
+        <h3>LLMs, Prompting & Ethics</h3>
+        <p>Zero/few-shot & chain-of-thought prompting, plus a hands-on bias audit and injection demo.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+      <a class="prac-card" href="../notebooks/Practical_15_SHAP_LIME_Interpretability.ipynb" download>
+        <span class="prac-num">PRACTICAL 15 · FINALE</span>
+        <h3>SHAP & LIME</h3>
+        <p>Explain individual predictions and debug misclassifications — the course's capstone skill.</p>
+        <span class="prac-open">Open notebook</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CO MAPPING -->
+<section id="outcomes">
+  <div class="wrap">
+    <div class="section-head"><h2>Course Outcomes, Mapped</h2></div>
+    <table class="co-table">
+      <tr><th>CO</th><th>Outcome</th><th>Delivered by</th></tr>
+      <tr><td>CO1</td><td>Collect, preprocess, and analyze textual data</td><td>Module 1 · Practicals 1–2</td></tr>
+      <tr><td>CO2</td><td>Text representation + ML classification & evaluation</td><td>Module 2 · Practicals 3–6</td></tr>
+      <tr><td>CO3</td><td>Information extraction, summarization, QA, sentiment, topics</td><td>Module 3 · Practicals 7–9</td></tr>
+      <tr><td>CO4</td><td>Design & deploy chatbots via the AI Project Cycle</td><td>Module 4 · Practicals 10–13</td></tr>
+      <tr><td>CO5</td><td>LLMs, prompt engineering, ethics, interpretability</td><td>Module 5 · Practicals 14–15</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<footer id="refs">
+  <div class="wrap">
+    <div class="section-head"><h2>References</h2></div>
+    <ul class="ref-list">
+      <li>Intel AI for Future Workforce — <i>Natural Language Processing Course Content</i>, Intel Digital Readiness Program.</li>
+      <li>Steven Bird, Ewan Klein & Edward Loper — <i>Natural Language Processing with Python</i>, O'Reilly Media.</li>
+      <li>Delip Rao & Brian McMahan — <i>Natural Language Processing with PyTorch</i>, O'Reilly Media.</li>
+      <li>Yoav Goldberg — <i>Neural Network Methods for Natural Language Processing</i>, Morgan & Claypool.</li>
+      <li>Jacob Devlin et al. — <i>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</i>, Google AI.</li>
+      <li>Sowmya Vajjala et al. — <i>Practical Natural Language Processing</i>, O'Reilly.</li>
+      <li>Vaswani et al. — <i>Attention Is All You Need</i>, NeurIPS 2017.</li>
+      <li>Ribeiro et al. — <i>"Why Should I Trust You?"</i> (LIME), KDD 2016.</li>
+      <li>Lundberg & Lee — <i>A Unified Approach to Interpreting Model Predictions</i> (SHAP), NeurIPS 2017.</li>
+      <li>Hugging Face, spaCy, NLTK, and scikit-learn official documentation.</li>
+    </ul>
+    <div class="foot-note">// DOAI250041 · Natural Language Processing · B.Tech Semester V · notebooks open directly in Google Colab</div>
+  </div>
+</footer>
+
+</body>
+</html>
